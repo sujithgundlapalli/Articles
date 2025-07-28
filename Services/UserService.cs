@@ -1,5 +1,8 @@
 using System.Net;
-using Articles;
+using MyArticles.Infrastructure;
+using MyArticles.Models;
+
+namespace MyArticles.Services;
 
 public class UserService(IUserRepository userRepository) : IUserService
 {
@@ -28,15 +31,4 @@ public interface IUserService
 {
     Result<User> GetUserById(int id);
     Result UpdateUser(User user);
-}
-
-public interface IUserRepository
-{
-    User FindById(int id);
-    bool UpdateUser(User user);
-}
-
-public class User
-{
-    public int ID { get; set; }
 }

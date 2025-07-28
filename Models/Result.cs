@@ -1,4 +1,4 @@
-namespace Articles;
+namespace MyArticles.Models;
 
 using System.Net;
 
