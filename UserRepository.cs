@@ -1,6 +1,7 @@
 using System.Net;
+using Articles;
 
-public class UserService(IUserRepository userRepository)
+public class UserService(IUserRepository userRepository) : IUserService
 {
     public Result<User> GetUserById(int id)
     {
@@ -8,7 +9,7 @@ public class UserService(IUserRepository userRepository)
         if (user == null)
             return Result<User>.Fail("User not found.", HttpStatusCode.NotFound);
 
-        return new(value : user);
+        return new(user);
     }
 
     public Result UpdateUser(User user)
@@ -21,6 +22,12 @@ public class UserService(IUserRepository userRepository)
 
         return Result.Fail("User Not Found", HttpStatusCode.NotFound);
     }
+}
+
+public interface IUserService
+{
+    Result<User> GetUserById(int id);
+    Result UpdateUser(User user);
 }
 
 public interface IUserRepository

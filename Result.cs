@@ -1,23 +1,22 @@
 namespace Articles;
-// Members which all use T
 
 using System.Net;
 
-public class Result<T>(bool success = true, string message = "", T? value = default, HttpStatusCode statusCode = HttpStatusCode.OK) : Result(success, message, statusCode)
+// Members which use type parameter
+public class Result<T>(T? value = default, bool success = true, string message = "", HttpStatusCode statusCode = HttpStatusCode.OK) : Result(success, message, statusCode)
 {
     public T? Value { get; } = value;
     public static Result<T> Fail(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
-                                => new(false, message, default, statusCode);
+                                => new(default, false, message, statusCode);
 }
 
 // Members which don't depend on the type parameter
-
 public class Result(bool success = true, string message = "", HttpStatusCode statusCode = HttpStatusCode.OK)
 {
-    private bool IsSuccess { get; } = success;
-    private string? Message { get; } = message;
-    public bool IsFailed => !IsSuccess;
-    protected HttpStatusCode code { get; } = statusCode;
+    public bool IsSuccess { get; } = success;
+    public string? Message { get; } = message;
+    public HttpStatusCode Code { get; } = statusCode;
     public static Result Fail(string message, HttpStatusCode statusCode = HttpStatusCode.BadRequest)
                             => new(false, message, statusCode);
+    public bool IsFailed => !IsSuccess;
 }
