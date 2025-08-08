@@ -35,7 +35,7 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
-
+//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
 app.Run();
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
